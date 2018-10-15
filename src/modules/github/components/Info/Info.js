@@ -1,9 +1,11 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableRow';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableRow
+} from '@material-ui/core';
 
 const propTypes = {
   info: PropTypes.object,

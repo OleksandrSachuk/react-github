@@ -1,17 +1,22 @@
 import { createStore, applyMiddleware } from 'redux';
 import { createEpicMiddleware } from 'redux-observable';
+import { composeWithDevTools } from 'redux-devtools-extension';
+
 import rootEpic from '../modules/github/epics';
 
 import rootReducer from '../modules/github/reducers';
 
-const epicMiddleware = createEpicMiddleware();
+export default function configureStore(preloadedState) {
 
-const store = createStore(
-  rootReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-  applyMiddleware(epicMiddleware),
-);
+  const epicMiddleware = createEpicMiddleware();
+  const middlewares = [epicMiddleware];
+  const middlewareEnhancer = applyMiddleware(...middlewares);
+  const enhancers = [middlewareEnhancer];
+  const composedEnhancers = composeWithDevTools(...enhancers);
 
-epicMiddleware.run(rootEpic);
+  const store = createStore(rootReducer, preloadedState, composedEnhancers);
 
-export default store;
+  epicMiddleware.run(rootEpic);
+
+  return store;
+}
