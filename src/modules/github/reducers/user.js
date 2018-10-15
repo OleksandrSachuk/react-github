@@ -26,9 +26,8 @@ export default function (state = initialState, action) {
 
     case SEARCH_USER_BY_NAME:
       return Object.assign({}, state, {
+        ...initialState,
         userName: action.payload,
-        repos: initialState.repos,
-        repoInfo: initialState.repoInfo,
       });
 
     case FETCH_USER_INFO_SUCCESS:
